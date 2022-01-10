@@ -9,6 +9,7 @@ import tian.life.community.dto.GithubUser;
 
 import java.io.IOException;
 
+
 @Component
 public class GithubProvider {
     public String getAccessToken(AccessTokenDTO accessTokenDTO){

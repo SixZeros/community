@@ -2,7 +2,7 @@ package tian.life.community.model;
 
 import org.omg.CORBA.INTERNAL;
 
-public class Quesstion {
+public class Question {
     private Long id;
     private String title;
     private String description;

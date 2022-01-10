@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import tian.life.community.mapper.QuesstionMapper;
+import tian.life.community.mapper.QuestionMapper;
 import tian.life.community.mapper.UserMapper;
-import tian.life.community.model.Quesstion;
+import tian.life.community.model.Question;
 import tian.life.community.model.User;
 
 import javax.servlet.http.Cookie;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController  {
 
     @Autowired
-    private QuesstionMapper quesstionMapper;
+    private QuestionMapper questionMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -63,7 +63,7 @@ public class PublishController  {
 
         User user = null;
         Cookie[] cookies = request.getCookies();
-        if(cookies != null){
+        if(cookies != null && cookies.length != 0){
             //增强for循环，遍历数组的每一个元素
             for (Cookie cookie : cookies) {
                 if(cookie.getName().equals("token")){
@@ -83,15 +83,15 @@ public class PublishController  {
         }
 
 
-        Quesstion quesstion = new Quesstion();
-        quesstion.setTitle(title);
-        quesstion.setDescription(description);
-        quesstion.setTag(tag);
-        quesstion.setCreator(user.getId());
-        quesstion.setGmtCreate(System.currentTimeMillis());
-        quesstion.setGmtModified(quesstion.getGmtCreate());
+        Question question = new Question();
+        question.setTitle(title);
+        question.setDescription(description);
+        question.setTag(tag);
+        question.setCreator(user.getId());
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(question.getGmtCreate());
 
-        quesstionMapper.create(quesstion);
+        questionMapper.create(question);
         return "redirect:/";
     }
 }

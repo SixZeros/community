@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import tian.life.community.dto.PaginationDTO;
 import tian.life.community.dto.QuestionDTO;
-import tian.life.community.mapper.QuestionMapper;
 import tian.life.community.mapper.UserMapper;
-import tian.life.community.model.Question;
 import tian.life.community.model.User;
 import tian.life.community.service.QuestionService;
 
@@ -34,7 +34,10 @@ public class IndexController {
      */
     @GetMapping("/")
     public  String index(HttpServletRequest request,
-                         Model model){
+                         Model model,
+                         @RequestParam(name = "page", defaultValue = "1") Integer page,
+                         @RequestParam(name = "size", defaultValue = "5") Integer size
+                         ){
         //获取cookie
         Cookie[] cookies = request.getCookies();
         if(cookies != null && cookies.length != 0){
@@ -51,11 +54,8 @@ public class IndexController {
             }
         }
 
-        List<QuestionDTO> questionList = questionService.list();
-        for (QuestionDTO questionDTO : questionList) {
-            questionDTO.setDescription("c");
-        }
-        model.addAttribute("questions", questionList);
+        PaginationDTO pagination = questionService.list(page, size);
+        model.addAttribute("pagination", pagination);
         return "index";
     }
 }

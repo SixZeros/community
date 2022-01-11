@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 业务层代码，将dto里面的数据整合在一起
- *将user的对象赋放进question里面
+ * 将user的对象赋放进question里面
  * 然后将question的数据全都放到questiondto
  * 然后将数据返回上去
  */
